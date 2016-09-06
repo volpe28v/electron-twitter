@@ -10,6 +10,10 @@ module.exports = class FormWindow {
     app.on('ready', () => {
       this.createWindow();
     });
+
+    app.on('showForm', () => {
+      this.window.show();
+    });
   }
 
   createWindow(){
@@ -19,8 +23,14 @@ module.exports = class FormWindow {
       resizable: false,
       minimizable: false,
       maximizable: false,
+      show: false,
       width: 300,
       height: 250
+    });
+
+    this.window.on('close', (event) => {
+      this.window.hide();
+      event.preventDefault();
     });
 
     this.window.loadURL(`file://${__dirname}/../../html/form.html`);
